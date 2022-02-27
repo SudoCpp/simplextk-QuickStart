@@ -1,0 +1,3 @@
+[submodule "subprojects/simplextk"]
+	path = subprojects/simplextk
+	url = https://github.com/SudoCpp/simplextk.git
