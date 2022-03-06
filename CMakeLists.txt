@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(Tester VERSION 1.0.0)
 
+# Packages required to install
+# example: libsdl2-dev
+
         # Code that is tabbed over like this should be code that is boilerplate
         # and does not need to be modified.
         include(CTest)
@@ -19,8 +22,6 @@ project(Tester VERSION 1.0.0)
         set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${FullOutputDir})
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${FullOutputDir})
 
-#These projects need to be in order of dependancy. Annoying... but prevents
-# duplication
 set(SubProjects
     simplextk
     )
@@ -28,6 +29,9 @@ set(SubProjects
 # Main.cpp is used to tie all the libraries together. It should be used
 # just to get the program started with minimal code.
 add_executable(${PROJECT_NAME} main.cpp)
+
+# If needing to add a manual linkage for example the linux c math library
+target_link_libraries(${PROJECT_NAME} "-lm")
 
         # This will automatically add subprojects, give availability to the combined
         # header and link them to the project.
