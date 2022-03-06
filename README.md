@@ -11,3 +11,5 @@ After it is cloned go into the directory that was created and use this command t
 `git submodule update --init --recursive --remote`
 
 I personally use Visual Studio Code with the Cmake-tools extension by Microsoft. Using this press `F1` to get the menu and use Cmake Configure. Then it should be ready to build, debug or run.
+
+CMakeLists.txt is an example of how to implement the simplextk library. Within the simplextk library itself, there is another CMakeLists.txt that shows how the library handles other dependancies.
