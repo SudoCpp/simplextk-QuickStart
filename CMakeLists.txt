@@ -9,6 +9,10 @@ project(Tester VERSION 1.0.0)
         include(CTest)
         enable_testing()
 
+        if (MSVC)
+            add_compile_options(/std:c++latest)
+        endif()
+
         #Determine if 32 or 64 bit for better output folder naming
         set(OSBitness 32)
         if(CMAKE_SIZEOF_VOID_P EQUAL 8)
@@ -39,14 +43,13 @@ target_link_libraries(${PROJECT_NAME} "-lm")
             if(NOT TARGET ${Project})
                 # Add the project so it is available
                 add_subdirectory("subprojects/${Project}")
-
-
-                # This folder contains the combined header file so that all public classes
-                # are available by including only this header. Users of the library should
-                # not need to know all the headers required to use the class.
-                include_directories("subprojects/${Project}")
-
-                # Link in all the libraries included above by project name.
-                target_link_libraries(${PROJECT_NAME} ${Project})
             endif()
+            
+            # This folder contains the combined header file so that all public classes
+            # are available by including only this header. Users of the library should
+            # not need to know all the headers required to use the class.
+            include_directories("subprojects/${Project}")
+
+            # Link in all the libraries included above by project name.
+            target_link_libraries(${PROJECT_NAME} ${Project})
         endforeach()
