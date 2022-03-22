@@ -11,6 +11,8 @@ project(Tester VERSION 1.0.0)
 
         if (MSVC)
             add_compile_options(/std:c++latest)
+            set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+            set(BUILD_SHARED_LIBS TRUE)
         endif()
 
         #Determine if 32 or 64 bit for better output folder naming
