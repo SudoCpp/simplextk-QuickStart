@@ -29,6 +29,8 @@ project(Tester VERSION 1.0.0)
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${FullOutputDir})
 
 set(SubProjects
+    Pyramid
+    simplexsdl
     simplextk
     )
 
@@ -39,6 +41,13 @@ add_executable(${PROJECT_NAME} main.cpp)
 # If needing to add a manual linkage for example the linux c math library
 target_link_libraries(${PROJECT_NAME} "-lm")
 
+        foreach(Project IN LISTS SubProjects)
+            # This folder contains the combined header file so that all public classes
+            # are available by including only this header. Users of the library should
+            # not need to know all the headers required to use the class.
+            include_directories("subprojects/${Project}")
+        endforeach()     
+
         # This will automatically add subprojects, give availability to the combined
         # header and link them to the project.
         foreach(Project IN LISTS SubProjects)
@@ -47,11 +56,6 @@ target_link_libraries(${PROJECT_NAME} "-lm")
                 add_subdirectory("subprojects/${Project}")
             endif()
             
-            # This folder contains the combined header file so that all public classes
-            # are available by including only this header. Users of the library should
-            # not need to know all the headers required to use the class.
-            include_directories("subprojects/${Project}")
-
             # Link in all the libraries included above by project name.
             target_link_libraries(${PROJECT_NAME} ${Project})
         endforeach()
