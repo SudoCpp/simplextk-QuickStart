@@ -61,7 +61,7 @@ function writeEndFormattingDecorations
 {
     cd include
     echo "Adding Formatting Decorations keyword support..."
-    headerFile="FormattingDecorations.hpp"
+    headerFile="EndFormattingDecorations.hpp"
     capitalProject=`echo ${projectName} | awk '{print toupper($0)}'`
     echo "#ifdef ${capitalProject}_FORMATTINGDECORATIONS_HPP" > $headerFile
     echo "#undef in" >> $headerFile
@@ -80,7 +80,7 @@ function writeFormattingDecorations
 {
     cd include
     echo "Adding 'internal' keyword support..."
-    headerFile="EndFormattingDecorations.hpp"
+    headerFile="FormattingDecorations.hpp"
     capitalProject=`echo ${projectName} | awk '{print toupper($0)}'`
     echo "#ifndef ${capitalProject}_FORMATTINGDECORATIONS_HPP" > $headerFile
     echo "#define ${capitalProject}_FORMATTINGDECORATIONS_HPP" >> $headerFile
@@ -120,7 +120,9 @@ function writeProjectExampleHeader
     echo "    class Example : public simplex::object" >> $headerFile
     echo "    {" >> $headerFile
     echo "        public:" >> $headerFile
-    echo "            Example();" >> $headerFile
+    echo "            Example(in const simplex::string& textToWrite);" >> $headerFile
+    echo "        internal:" >> $headerFile
+    echo "            void displayText(in const simplex::string& textToWrite);" >> $headerFile
     echo "    };" >> $headerFile
     echo "}" >> $headerFile
     echo "" >> $headerFile
@@ -142,9 +144,14 @@ function writeProjectExampleSource
     echo "" >> $sourceFile
     echo "namespace "$lowerProject >> $sourceFile
     echo "{" >> $sourceFile
-    echo "    Example::Example()" >> $sourceFile
+    echo "    Example::Example(const string& textToWrite)" >> $sourceFile
     echo "    {" >> $sourceFile
-    echo "        Console::WriteLine(\"Hello World!\");" >> $sourceFile
+    echo "        displayText(textToWrite);" >> $sourceFile
+    echo "    }" >> $sourceFile
+    echo "" >> $sourceFile
+    echo "    void Example::displayText(const string& textToWrite)" >> $sourceFile
+    echo "    {" >> $sourceFile
+    echo "        Console::WriteLine(textToWrite);" >> $sourceFile
     echo "    }" >> $sourceFile
     echo "}" >> $sourceFile
     echo "" >> $sourceFile
@@ -329,7 +336,8 @@ function makeMainCpp
     echo '    for(int argumentLoop = 0; argumentLoop < numberArguments; argumentLoop++)' >> $cppFile
     echo '        arguments.add(commandlineArguments[argumentLoop]);' >> $cppFile
     echo '' >> $cppFile
-    echo "    ${lowerProject}::Example example{};" >> $cppFile
+    echo "    ${lowerProject}::Example example{\"Hello World!\"};" >> $cppFile
+    echo '    //example.displayText("Can not be used outside of library because marked \"internal\".");' >> $cppFile
     echo '' >> $cppFile
     echo '    return 0;' >> $cppFile
     echo '}' >> $cppFile
