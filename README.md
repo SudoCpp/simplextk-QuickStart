@@ -1,4 +1,4 @@
-# example-simplex-implementation
+# simplextk-QuickStart
 
 Previously there was the rough framework of what you could use to start a project with simplextk. Now, there is a simple shell script that will do all that the file structure did for you and more.
 
