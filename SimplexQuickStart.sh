@@ -112,7 +112,7 @@ function writeProjectExampleHeader
     echo "#ifndef ${capitalProject}_EXAMPLE_HPP" > $headerFile
     echo "#define ${capitalProject}_EXAMPLE_HPP" >> $headerFile
     echo "" >> $headerFile
-    echo "#include \"simplextk.hpp\"" >> $headerFile
+    echo "#include <simplextk.hpp>" >> $headerFile
     echo "#include \"FormattingDecorations.hpp\"" >> $headerFile
     echo "" >> $headerFile
     echo "namespace "$lowerProject >> $headerFile
@@ -326,8 +326,8 @@ function makeMainCpp
     echo "Writing main.cpp..."
     cppFile=main.cpp
     lowerProject=`echo ${projectName} | awk '{print tolower($0)}'`
-    echo '#include "simplextk.hpp"' > $cppFile
-    echo "#include \"${projectName}.hpp\"" >> $cppFile
+    echo '#include <simplextk.hpp>' > $cppFile
+    echo "#include <${projectName}.hpp>" >> $cppFile
     echo '' >> $cppFile
     echo 'int main (int numberArguments, char* commandlineArguments[])' >> $cppFile
     echo '{' >> $cppFile
