@@ -70,7 +70,7 @@ function writeEndFormattingDecorations
     echo "#undef nullable" >> $headerFile
     echo "#undef ownership" >> $headerFile
     echo "#undef slots" >> $headerFile
-    echo "#undef internal" >> $headerFile
+    echo "#undef _internal" >> $headerFile
     echo "#undef ${capitalProject}_FORMATTINGDECORATIONS_HPP" >> $headerFile
     echo "#endif //${capitalProject}_FORMATTINGDECORATIONS_HPP" >> $headerFile
     cd ..
@@ -79,7 +79,7 @@ function writeEndFormattingDecorations
 function writeFormattingDecorations
 {
     cd include
-    echo "Adding 'internal' keyword support..."
+    echo "Adding '_internal' keyword support..."
     headerFile="FormattingDecorations.hpp"
     capitalProject=`echo ${projectName} | awk '{print toupper($0)}'`
     echo "#ifndef ${capitalProject}_FORMATTINGDECORATIONS_HPP" > $headerFile
@@ -92,9 +92,9 @@ function writeFormattingDecorations
     echo "#define slots" >> $headerFile
     echo "//This needs to be set to the definition of the include all header" >> $headerFile
     echo "#ifdef ${capitalProject}_HPP" >> $headerFile
-    echo "#define internal private" >> $headerFile
+    echo "#define _internal private" >> $headerFile
     echo "#else" >> $headerFile
-    echo "#define internal public" >> $headerFile
+    echo "#define _internal public" >> $headerFile
     echo "#endif" >> $headerFile
     echo "#else" >> $headerFile
     echo "#error \"FormattingDecorations must be included after all other includes or last includer needs to include EndFormattingDecorations at the end.\"" >> $headerFile
@@ -121,7 +121,7 @@ function writeProjectExampleHeader
     echo "    {" >> $headerFile
     echo "        public:" >> $headerFile
     echo "            Example(in const simplex::string& textToWrite);" >> $headerFile
-    echo "        internal:" >> $headerFile
+    echo "        _internal:" >> $headerFile
     echo "            void displayText(in const simplex::string& textToWrite);" >> $headerFile
     echo "    };" >> $headerFile
     echo "}" >> $headerFile
@@ -337,7 +337,7 @@ function makeMainCpp
     echo '        arguments.add(commandlineArguments[argumentLoop]);' >> $cppFile
     echo '' >> $cppFile
     echo "    ${lowerProject}::Example example{\"Hello World!\"};" >> $cppFile
-    echo '    //example.displayText("Can not be used outside of library because marked \"internal\".");' >> $cppFile
+    echo '    //example.displayText("Can not be used outside of library because marked \"_internal\".");' >> $cppFile
     echo '' >> $cppFile
     echo '    return 0;' >> $cppFile
     echo '}' >> $cppFile
